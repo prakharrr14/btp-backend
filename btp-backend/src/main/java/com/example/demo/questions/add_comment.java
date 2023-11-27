@@ -28,7 +28,7 @@ public class add_comment {
 	public void comment(comments ft,int question_id) throws JsonProcessingException
 	{
 	
-		System.out.println("yes "+ft.getName());
+	System.out.println("here"+ft.getUser_type());
 	RestTemplate resttemplate=new RestTemplate();
 	questions bt=new questions();
 //	comments ft=new comments();
@@ -36,8 +36,6 @@ public class add_comment {
 	//questions dt=new questions();
 	bt  = resttemplate.getForObject( "http://localhost:8080/findquestionbyid/"+question_id+"", questions.class);
 	bt.comments_list.add(ft);
-	
-	
 	String url="http://localhost:8080/update/question";
 	RestTemplate rest=new RestTemplate();
 	HttpHeaders headers = new HttpHeaders();

@@ -182,6 +182,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.*;
 import com.example.demo.auth.login;
+import com.example.demo.auth.AdminLogin;
 import com.example.demo.models.comments;
 import com.example.demo.models.questions;
 import com.example.demo.models.subreddit;
@@ -191,6 +192,7 @@ import com.example.demo.questions.vote;
 import com.example.demo.subreddit.add_subreddit;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.demo.questions.add_comment;
+import com.example.demo.questions.delete_Comment;
 
 //import com.example.interfaces.Category_interface;
 //import com.example.interfaces.Filter_interface;
@@ -243,6 +245,13 @@ public class restcontroller {
 		 
 		 
     }
+	
+	@PostMapping("/users/{question_id}/deletecomment")
+	public void delete_comment(@PathVariable int question_id,@RequestBody comments Comments)throws JsonProcessingException
+	{
+		delete_Comment  dc= new delete_Comment();
+		dc.comment(Comments, question_id);
+	}
 	
 	@PostMapping("/users/{parent_id}/{username}/{questionname}/{questiondescription}")
 	public String new_question(@PathVariable int parent_id,@PathVariable String username,@PathVariable String questionname,@PathVariable String questiondescription) throws JsonProcessingException
@@ -312,7 +321,21 @@ public class restcontroller {
     	   return 0;
        }
    }
-  
+   @GetMapping("/AdminAuthenticate/{username}/{password}")
+   public int executeJwtAuthenticationServiceAdmin(@PathVariable String username, @PathVariable String password) throws JsonProcessingException 
+    {
+ 	   AdminLogin a=new AdminLogin();
+ 	 
+ 	   if(  a.yoyo(username, password)==1)
+ 	   {
+ 		   return 1; 
+ 	   }
+      
+        else
+        {
+     	   return 0;
+        }
+    }
    
     
 
